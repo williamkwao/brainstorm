@@ -13,6 +13,9 @@ const subscription = gql`
 `;
 
 class App extends Component {
+  state ={
+     data: []
+  }
   render() {
     return (
       <Subscription subscription={subscription}>
@@ -20,15 +23,18 @@ class App extends Component {
           console.log("give me data!", data, loading);
           if (data && data.ideaAdded) {
             console.log("data", data.ideaAdded);
-
             return (
-              <div>
-                <h4> New Idea added by {data.ideaAdded.user}</h4>
+              <div className="idea">
                 <h1>{data.ideaAdded.text}</h1>
+                <h4> user: {data.ideaAdded.user}</h4>
               </div>
             );
           }
-          return <h4>Waiting for new ideas</h4>;
+          return (
+            <div className="idea">
+              <h4>Waiting for new ideas</h4>
+            </div>
+          );
         }}
       </Subscription>
     );
